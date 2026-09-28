@@ -1,0 +1,262 @@
+@import "tailwindcss";
+
+/*
+  InfiniteNotes design tokens — derived from the official logo:
+  infinity + music-note mark with electric cyan → violet/magenta gradient,
+  rounded/fluid forms, modern neon-glass character.
+*/
+
+:root {
+  /* Brand */
+  --primary: #0284c7;
+  --primary-hover: #0369a1;
+  --primary-muted: #e0f2fe;
+  --secondary: #7c3aed;
+  --secondary-hover: #6d28d9;
+  --accent: #c026d3;
+  --accent-muted: #fae8ff;
+
+  /* Surfaces */
+  --background: #f3f5fb;
+  --foreground: #0f172a;
+  --surface: #ffffff;
+  --surface-muted: #e8ecf6;
+  --surface-elevated: #dde3f2;
+  --card: #ffffff;
+  --border: #cfd6e6;
+  --muted-foreground: #64748b;
+
+  /* Status */
+  --success: #059669;
+  --warning: #d97706;
+  --error: #dc2626;
+
+  /* Brand scale (compat with existing brand-* utilities) */
+  --brand-400: #38bdf8;
+  --brand-500: #0284c7;
+  --brand-600: #0369a1;
+
+  /* Shape & elevation */
+  --radius-sm: 0.625rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.5rem;
+  --shadow-soft: 0 1px 2px rgb(15 23 42 / 5%), 0 10px 28px rgb(2 132 199 / 8%);
+  --shadow-glow: 0 0 0 1px rgb(2 132 199 / 12%), 0 8px 24px rgb(124 58 237 / 10%);
+
+  /* Layout */
+  --page-pad: 1rem;
+  --content-max: 42rem;
+  --shell-max: 64rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 220ms;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --font-sans: var(--font-dm-sans);
+  --font-display: var(--font-fraunces);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+}
+
+/* Dark theme — deep navy surfaces (not inverted light), luminous accents */
+html.dark,
+html[data-theme="dark"] {
+  --primary: #38bdf8;
+  --primary-hover: #7dd3fc;
+  --primary-muted: #0c4a6e;
+  --secondary: #c084fc;
+  --secondary-hover: #d8b4fe;
+  --accent: #e879f9;
+  --accent-muted: #4a044e;
+
+  --background: #080a14;
+  --foreground: #eef2ff;
+  --surface: #121526;
+  --surface-muted: #1a1f35;
+  --surface-elevated: #242b45;
+  --card: #14182a;
+  --border: #2a334f;
+  --muted-foreground: #94a3b8;
+
+  --success: #34d399;
+  --warning: #fbbf24;
+  --error: #f87171;
+
+  --brand-400: #7dd3fc;
+  --brand-500: #38bdf8;
+  --brand-600: #0ea5e9;
+
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 40%), 0 12px 32px rgb(2 8 23 / 45%);
+  --shadow-glow: 0 0 0 1px rgb(56 189 248 / 18%), 0 10px 32px rgb(192 132 252 / 14%);
+}
+
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
+}
+
+html.dark,
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--primary) 35%, transparent);
+}
+
+.page-shell {
+  width: 100%;
+  max-width: var(--shell-max);
+  margin-inline: auto;
+  padding-inline: var(--page-pad);
+}
+
+[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --page-pad: 1.5rem;
+  }
+}
+
+.lyrics-panel {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  font-size: 1.125rem;
+  line-height: 1.9;
+  letter-spacing: 0.01em;
+}
+
+@media (min-width: 640px) {
+  .lyrics-panel {
+    font-size: 1.2rem;
+    line-height: 1.95;
+  }
+}
+
+/* Brand helpers */
+.brand-gradient-text {
+  background-image: linear-gradient(120deg, var(--primary), var(--secondary) 55%, var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.brand-gradient-bg {
+  background-image: linear-gradient(120deg, var(--primary), var(--secondary) 55%, var(--accent));
+}
+
+.surface-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Smooth interactions */
+a,
+button,
+input,
+textarea,
+select,
+.transition-ui {
+  transition-property: color, background-color, border-color, box-shadow, opacity, transform;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-out);
+}
+
+/* Landing motion */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.55s var(--ease-out) both;
+}
+
+.animate-delay-1 {
+  animation-delay: 70ms;
+}
+
+.animate-delay-2 {
+  animation-delay: 140ms;
+}
+
+.animate-delay-3 {
+  animation-delay: 210ms;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(0.65rem);
+  transition:
+    opacity 0.5s var(--ease-out),
+    transform 0.5s var(--ease-out);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-fade-up,
+  .reveal {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
